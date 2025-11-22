@@ -27,7 +27,7 @@ export default function Home() {
   const textMove = 30;
 
   return (
-    <main className="relative w-screen h-screen overflow-hidden bg-[#2d5a52] text-[#1a1a1a]">
+    <main className="relative w-screen h-screen overflow-hidden text-[#1a1a1a]">
       <div
         className="absolute inset-[-50px] w-[calc(100%+100px)] h-[calc(100%+100px)] transition-transform duration-100 ease-out pointer-events-none"
         style={{
