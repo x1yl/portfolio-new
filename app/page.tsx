@@ -223,8 +223,18 @@ export default function Home() {
             </svg>
           </div>
 
-          <p className="mt-2 font-serif italic text-xl text-slate-100 tracking-wide">
-            Junior @ Brooklyn Technical High School
+          <p className="mt-2 font-serif italic text-3xl text-slate-100 tracking-wide flex flex-wrap justify-center gap-x-1.5">
+            {"16 yo, based in Brooklyn, New York."
+              .split(" ")
+              .map((word, i) => (
+                <span
+                  key={i}
+                  className="animate-fade-up"
+                  style={{ animationDelay: `${3.2 + i * 0.1}s` }}
+                >
+                  {word}
+                </span>
+              ))}
           </p>
 
           <a
@@ -233,9 +243,10 @@ export default function Home() {
             download
             onMouseMove={handleBtnMouseMove}
             onMouseLeave={handleBtnMouseLeave}
-            className="relative mt-10 px-12 py-5 rounded-full border border-black/60 bg-white/5 hover:bg-black/5 transition-colors uppercase text-sm tracking-widest overflow-hidden group"
+            className="relative mt-10 px-24 py-5 rounded-full bg-zinc-900 hover:bg-zinc-800 text-white transition-colors uppercase text-sm tracking-widest overflow-hidden group animate-fade-up"
+            style={{ animationDelay: "3.9s" }}
           >
-            <span className="relative z-10">Resume</span>
+            <span className="relative z-10 ">Resume</span>
             <div
               className="absolute inset-0 pointer-events-none transition-opacity duration-300"
               style={{
