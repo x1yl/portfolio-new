@@ -119,7 +119,7 @@ export default function Home() {
           >
             © Kevin Zheng
           </div>
-          <nav className="flex gap-8 font-medium tracking-wide">
+          <nav className="font-serif flex gap-8 tracking-wide">
             {["Projects", "About", "Blog", "Contact"].map((item, i) => (
               <ParallaxLink
                 key={item}
