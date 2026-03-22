@@ -3,7 +3,6 @@ import { Geist, Geist_Mono, Rock_Salt } from "next/font/google";
 import "./globals.css";
 import MusicPlayer from "./components/MusicPlayer";
 
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

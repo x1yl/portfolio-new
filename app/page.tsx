@@ -2,57 +2,17 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-
-const ParallaxLink = ({
-  href,
-  children,
-  className,
-  style,
-}: {
-  href: string;
-  children: React.ReactNode;
-  className?: string;
-  style?: React.CSSProperties;
-}) => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const ref = useRef<HTMLAnchorElement>(null);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-
-    const x = (e.clientX - centerX) * 0.3;
-    const y = (e.clientY - centerY) * 0.3;
-
-    setPosition({ x, y });
-  };
-
-  const handleMouseLeave = () => {
-    setPosition({ x: 0, y: 0 });
-  };
-
-  return (
-    <a
-      ref={ref}
-      href={href}
-      className={className}
-      style={style}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-    >
-      <span
-        className="inline-block transition-transform duration-100 ease-out"
-        style={{
-          transform: `translate(${position.x}px, ${position.y}px)`,
-        }}
-      >
-        {children}
-      </span>
-    </a>
-  );
-};
+import { Menu } from "lucide-react";
+import { ParallaxLink } from "@/app/components/ParallaxLink";
+import { Button } from "@/app/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/app/components/ui/sheet";
 
 export default function Home() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -93,9 +53,9 @@ export default function Home() {
   const textMove = 30;
 
   return (
-    <main className="relative w-screen h-screen overflow-hidden text-[#1a1a1a]">
+    <main className="relative w-screen h-screen overflow-hidden text-strong">
       <div
-        className="absolute inset-[-50px] w-[calc(100%+100px)] h-[calc(100%+100px)] transition-transform duration-100 ease-out pointer-events-none"
+        className="absolute -inset-12.5 w-[calc(100%+100px)] h-[calc(100%+100px)] transition-transform duration-100 ease-out pointer-events-none"
         style={{
           transform: `translate(${-mousePos.x * bgMove}px, ${
             -mousePos.y * bgMove
@@ -111,26 +71,58 @@ export default function Home() {
         />
       </div>
 
-      <div className="relative z-10 w-full h-full flex flex-col justify-between p-8 md:p-12">
+      <div className="relative z-10 w-full h-full flex flex-col justify-between p-8 pb-24 md:p-12 md:pb-12">
         <header className="relative z-50 flex justify-between items-start text-slate-100">
           <div
-            className="font-serif tracking-widest opacity-70 animate-cascade"
+            className="rounded-full px-4 py-2 font-serif tracking-widest text-strong animate-cascade"
             style={{ animationDelay: "2.5s" }}
           >
             © Kevin Zheng
           </div>
-          <nav className="font-serif flex gap-8 tracking-wide">
-            {["Projects", "About", "Blog", "Contact"].map((item, i) => (
+          <nav className="hidden md:flex font-serif gap-8 tracking-wide rounded-full px-3 py-1">
+            {["Projects", "About", "Contact"].map((item, i) => (
               <ParallaxLink
                 key={item}
                 href={`/${item.toLowerCase()}`}
-                className="px-4 py-2 hover:opacity-60 transition-opacity animate-cascade"
+                className="px-4 py-2 hover:opacity-80 text-strong transition-opacity animate-cascade"
                 style={{ animationDelay: `${2.5 + (i + 1) * 0.2}s` }}
               >
                 {item}
               </ParallaxLink>
             ))}
           </nav>
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button
+                variant="secondary"
+                size="icon"
+                className="md:hidden text-strong"
+                aria-label="Open navigation menu"
+              >
+                <Menu />
+              </Button>
+            </SheetTrigger>
+            <SheetContent>
+              <SheetHeader>
+                <SheetTitle>Navigate</SheetTitle>
+                <SheetDescription>
+                  Explore the portfolio sections.
+                </SheetDescription>
+              </SheetHeader>
+              <div className="mt-6 flex flex-col gap-3">
+                {["Projects", "About", "Contact"].map((item) => (
+                  <Button
+                    key={item}
+                    asChild
+                    variant="secondary"
+                    className="justify-start normal-case tracking-normal"
+                  >
+                    <a href={`/${item.toLowerCase()}`}>{item}</a>
+                  </Button>
+                ))}
+              </div>
+            </SheetContent>
+          </Sheet>
         </header>
 
         <div
@@ -154,10 +146,14 @@ export default function Home() {
                 strokeLinecap="round"
                 fillRule="evenodd"
                 fontSize="9pt"
-                stroke="#000"
+                stroke="currentColor"
                 strokeWidth="0.25mm"
-                fill="#000"
-                style={{ stroke: "#000", strokeWidth: "0.25mm", fill: "#000" }}
+                fill="currentColor"
+                style={{
+                  stroke: "currentColor",
+                  strokeWidth: "0.25mm",
+                  fill: "currentColor",
+                }}
               >
                 <path
                   d="M 79.59 109.57 L 79.102 109.57 Q 78.32 109.668 77.783 109.229 Q 77.246 108.789 76.465 108.789 Q 75.977 108.789 75.684 108.887 Q 75.391 108.106 74.805 107.617 Q 74.219 107.129 73.584 106.69 Q 72.949 106.25 72.363 105.811 Q 71.777 105.371 71.484 104.688 Q 69.043 103.809 66.748 102.588 Q 64.453 101.367 62.695 99.414 Q 60.742 99.219 59.473 98.193 Q 58.203 97.168 57.129 95.606 Q 54.785 94.824 52.832 93.555 Q 50.879 92.285 48.975 90.918 Q 47.07 89.551 44.971 88.428 Q 42.871 87.305 40.234 86.816 Q 40.137 86.133 39.648 85.791 Q 39.16 85.449 38.525 85.205 Q 37.891 84.961 37.305 84.766 Q 36.719 84.57 36.426 83.984 Q 36.133 83.984 35.84 83.936 Q 35.547 83.887 35.254 83.887 Q 34.961 83.887 34.619 83.936 Q 34.277 83.984 33.984 83.984 L 34.082 83.691 Q 34.082 83.301 33.838 83.203 Q 33.594 83.106 33.203 83.008 Q 32.813 82.91 32.52 82.715 Q 32.227 82.52 32.227 81.836 L 31.934 81.836 Q 30.859 81.836 29.98 81.445 Q 29.102 81.055 28.027 80.859 Q 27.832 81.934 27.832 82.91 L 27.832 84.668 Q 27.832 89.063 28.809 93.897 Q 29.785 98.731 31.836 102.539 Q 33.887 103.32 35.352 104.59 Q 36.816 105.859 38.184 107.52 Q 38.281 110.156 36.279 111.963 Q 34.277 113.77 31.641 113.77 Q 30.176 113.77 28.955 113.037 Q 27.734 112.305 26.953 110.938 Q 26.367 110.938 25.879 111.182 Q 25.391 111.426 24.707 111.426 Q 24.414 111.426 24.121 111.328 Q 23.145 109.668 22.217 108.399 Q 21.289 107.129 20.996 104.981 Q 19.922 104.492 19.678 103.223 Q 19.434 101.953 18.555 101.172 Q 18.164 96.777 17.529 92.383 Q 16.895 87.988 16.895 83.594 Q 16.895 82.617 16.992 81.592 Q 17.09 80.566 17.188 79.492 Q 16.992 79.004 16.65 78.565 Q 16.309 78.125 16.113 77.637 Q 14.16 78.125 12.061 78.565 Q 9.961 79.004 7.813 79.004 Q 6.445 79.004 4.492 78.565 Q 2.539 78.125 1.465 77.344 Q 0.684 76.856 0.342 75.537 Q 0 74.219 0 73.242 Q 0 71.582 0.586 69.873 Q 1.172 68.164 2.148 66.895 Q 6.934 64.941 11.084 62.109 Q 15.234 59.277 19.238 55.957 Q 19.336 54.981 19.58 54.004 Q 19.824 53.027 19.824 51.953 Q 19.824 50.781 19.238 49.707 Q 19.824 49.121 19.824 48.193 Q 19.824 47.266 20.313 46.484 L 20.313 45.899 Q 20.313 45.508 20.264 45.117 Q 20.215 44.727 19.922 44.336 Q 20.605 40.527 20.996 36.768 Q 21.387 33.008 21.387 29.004 Q 21.387 28.711 21.729 27.393 Q 22.07 26.074 22.168 25.586 Q 22.559 23.34 22.705 21.143 Q 22.852 18.945 23.145 16.699 Q 23.242 15.918 23.535 14.649 Q 23.828 13.379 23.828 12.891 Q 23.828 12.207 23.584 11.963 Q 23.34 11.719 23.145 11.133 Q 23.73 8.887 23.779 6.592 Q 23.828 4.297 24.121 2.051 Q 25.781 1.367 26.758 0.684 Q 27.734 0 29.59 0 L 29.785 0 Q 29.98 1.172 30.664 2.197 Q 31.348 3.223 32.08 4.248 Q 32.813 5.274 33.398 6.201 Q 33.984 7.129 33.984 8.008 Q 33.984 9.668 33.691 11.621 Q 33.398 13.574 33.203 15.234 Q 32.715 19.629 32.324 23.877 Q 31.934 28.125 31.152 32.52 Q 31.445 33.887 31.445 35.059 Q 31.445 36.816 31.152 38.574 Q 30.859 40.332 30.859 42.188 Q 30.859 43.066 31.006 44.043 Q 31.152 45.02 31.543 45.801 Q 34.863 44.922 37.5 42.188 Q 37.891 41.797 38.33 41.162 Q 38.77 40.527 39.258 40.137 Q 40.234 39.356 41.357 38.721 Q 42.48 38.086 43.555 37.402 Q 46.094 35.742 48.486 33.936 Q 50.879 32.129 53.32 30.371 Q 60.547 25.098 67.334 19.385 Q 74.121 13.672 80.566 7.324 Q 80.859 5.664 81.738 4.688 Q 82.617 3.711 83.301 2.344 Q 85.156 1.66 86.523 0.293 Q 87.109 0.488 87.744 0.537 Q 88.379 0.586 89.014 0.586 Q 89.648 0.586 90.283 0.635 Q 90.918 0.684 91.406 0.977 Q 91.504 2.441 91.699 3.613 Q 91.895 4.785 92.871 5.859 Q 92.871 6.055 92.92 6.25 Q 92.969 6.445 92.969 6.641 Q 92.969 7.715 92.383 8.399 Q 91.797 9.082 91.699 10.059 L 86.621 15.137 Q 84.082 17.676 81.934 20.606 Q 81.152 20.703 80.566 21.094 Q 79.98 21.484 79.443 21.924 Q 78.906 22.363 78.32 22.754 Q 77.734 23.145 77.051 23.34 Q 75.293 25.684 73.047 27.588 Q 70.801 29.492 68.457 31.25 Q 66.113 33.008 63.818 34.815 Q 61.523 36.621 59.57 38.77 Q 57.52 39.746 55.615 41.065 Q 53.711 42.383 52.539 44.336 L 52.051 44.336 Q 51.563 44.336 51.27 44.58 Q 50.977 44.824 50.488 44.824 Q 45.215 49.414 39.551 53.467 Q 33.887 57.52 28.711 62.305 L 28.711 64.746 Q 30.371 65.723 32.324 66.553 Q 34.277 67.383 36.182 68.359 Q 38.086 69.336 39.795 70.459 Q 41.504 71.582 42.773 73.145 Q 42.969 73.047 43.262 73.047 Q 44.141 73.047 44.629 73.584 Q 45.117 74.121 46.289 73.926 Q 46.68 75.488 48.047 76.172 Q 49.414 76.856 50.781 77.344 Q 51.953 78.516 52.93 79.541 Q 53.906 80.566 55.762 80.859 Q 55.957 81.25 56.055 81.738 Q 56.152 82.227 56.445 82.617 Q 58.301 83.203 60.01 84.277 Q 61.719 85.352 63.379 86.475 Q 65.039 87.598 66.748 88.623 Q 68.457 89.649 70.41 90.234 Q 70.703 91.211 71.533 91.602 Q 72.363 91.992 72.852 92.774 L 74.609 92.774 Q 74.902 93.262 75.391 93.701 Q 75.879 94.141 76.074 94.922 Q 76.855 95.117 77.832 95.459 Q 78.809 95.801 79.59 96.289 Q 79.883 96.582 80.029 96.973 Q 80.176 97.363 80.566 97.656 Q 81.152 98.145 82.373 98.389 Q 83.594 98.633 84.473 99.121 Q 86.23 100.098 87.891 101.318 Q 89.551 102.539 91.406 103.613 L 95.215 105.664 Q 96.191 106.152 97.021 106.738 Q 97.852 107.324 98.73 107.813 Q 100.488 108.594 102.49 108.838 Q 104.492 109.082 106.152 109.863 Q 106.641 110.156 106.836 110.596 Q 107.031 111.035 107.52 111.328 Q 108.301 111.816 109.961 112.012 Q 111.621 112.207 112.695 112.695 Q 114.063 113.281 115.381 113.818 Q 116.699 114.356 118.066 115.137 Q 120.996 115.332 123.877 115.82 Q 126.758 116.309 129.59 116.797 Q 132.422 117.285 135.303 117.676 Q 138.184 118.066 141.113 117.969 Q 141.113 118.164 141.357 118.213 Q 141.602 118.262 141.797 118.262 Q 142.48 119.336 142.969 120.41 Q 143.457 121.484 143.457 122.656 Q 143.457 123.731 142.969 124.707 Q 141.016 125.781 138.916 126.221 Q 136.816 126.66 134.766 126.66 Q 133.789 126.66 132.666 126.611 Q 131.543 126.563 130.664 126.367 Q 130.371 126.27 129.98 125.977 Q 129.59 125.684 129.199 125.684 Q 128.223 125.684 127.344 126.025 Q 126.465 126.367 125.488 126.367 Q 125 126.367 124.561 126.074 Q 124.121 125.781 123.633 125.684 Q 122.949 125.488 122.266 125.586 Q 121.582 125.684 120.801 125.684 Q 119.727 125.684 118.896 125.391 Q 118.066 125.098 117.383 124.316 Q 114.941 124.024 112.598 123.389 Q 110.254 122.754 107.91 122.022 Q 105.566 121.289 103.223 120.654 Q 100.879 120.02 98.438 119.824 Q 97.852 119.141 97.07 118.799 Q 96.289 118.457 95.898 117.676 Q 95.41 117.676 95.215 117.822 Q 95.02 117.969 94.531 117.969 Q 92.871 116.602 90.967 115.625 Q 89.063 114.649 87.061 113.77 Q 85.059 112.891 83.154 111.963 Q 81.25 111.035 79.59 109.57 Z"
@@ -223,41 +219,44 @@ export default function Home() {
             </svg>
           </div>
 
-          <p className="mt-2 font-serif italic text-3xl text-slate-100 tracking-wide flex flex-wrap justify-center gap-x-1.5">
-            {"16 yo, based in Brooklyn, New York."
-              .split(" ")
-              .map((word, i) => (
-                <span
-                  key={i}
-                  className="animate-fade-up"
-                  style={{ animationDelay: `${3.2 + i * 0.1}s` }}
-                >
-                  {word}
-                </span>
-              ))}
+          <p className="mt-3 px-5 py-2.5 rounded-full font-serif italic text-xl md:text-3xl text-strong tracking-wide flex flex-wrap justify-center gap-x-1.5">
+            {"16 yo, based in Brooklyn, New York.".split(" ").map((word, i) => (
+              <span
+                key={i}
+                className="animate-fade-up"
+                style={{ animationDelay: `${3.2 + i * 0.1}s` }}
+              >
+                {word}
+              </span>
+            ))}
           </p>
 
-          <a
-            ref={btnRef}
-            href="/Kevin Zheng Resume.pdf"
-            download
-            onMouseMove={handleBtnMouseMove}
-            onMouseLeave={handleBtnMouseLeave}
-            className="relative mt-10 px-24 py-5 rounded-full bg-zinc-900 hover:bg-zinc-800 text-white transition-colors uppercase text-sm tracking-widest overflow-hidden group animate-fade-up"
+          <Button
+            asChild
+            size="lg"
+            className="relative mt-10 overflow-hidden group animate-fade-up"
             style={{ animationDelay: "3.9s" }}
           >
-            <span className="relative z-10 ">Resume</span>
-            <div
-              className="absolute inset-0 pointer-events-none transition-opacity duration-300"
-              style={{
-                opacity: btnState.opacity,
-                backgroundColor: "rgba(255, 255, 255, 0.2)",
-                backdropFilter: "blur(1000px)",
-                WebkitMaskImage: `radial-gradient(circle 80px at ${btnState.x}px ${btnState.y}px, black, transparent)`,
-                maskImage: `radial-gradient(circle 80px at ${btnState.x}px ${btnState.y}px, black, transparent)`,
-              }}
-            />
-          </a>
+            <a
+              ref={btnRef}
+              href="/Kevin Zheng Resume.pdf"
+              download
+              onMouseMove={handleBtnMouseMove}
+              onMouseLeave={handleBtnMouseLeave}
+            >
+              <span className="relative z-10 ">Resume</span>
+              <div
+                className="absolute inset-0 pointer-events-none transition-opacity duration-300"
+                style={{
+                  opacity: btnState.opacity,
+                  backgroundColor: "rgba(255, 255, 255, 0.2)",
+                  backdropFilter: "blur(1000px)",
+                  WebkitMaskImage: `radial-gradient(circle 80px at ${btnState.x}px ${btnState.y}px, black, transparent)`,
+                  maskImage: `radial-gradient(circle 80px at ${btnState.x}px ${btnState.y}px, black, transparent)`,
+                }}
+              />
+            </a>
+          </Button>
         </div>
       </div>
     </main>
