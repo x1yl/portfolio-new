@@ -1,39 +1,41 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Rock_Salt } from "next/font/google";
+import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import MusicPlayer from "./components/MusicPlayer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-fraunces" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const jbmono = JetBrains_Mono({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const rockSalt = Rock_Salt({
-  weight: "400",
-  variable: "--font-rock-salt",
-  subsets: ["latin"],
+  variable: "--font-jbmono",
 });
 
 export const metadata: Metadata = {
   title: "Kevin Zheng",
-  description: "Personal website and portfolio of Kevin Zheng.",
+  description: "17-year-old developer based in Brooklyn, New York.",
+  icons: { icon: "/icon.png", apple: "/icon.png" },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${rockSalt.variable} antialiased`}
-      >
+    <html
+      lang="en"
+      className={`${fraunces.variable} ${inter.variable} ${jbmono.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              '(function(){try{var t=localStorage.getItem("kz-theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=d?"dark":"light";}catch(e){}})()',
+          }}
+        />
+      </head>
+      <body className="antialiased">
         {children}
         <MusicPlayer />
       </body>
