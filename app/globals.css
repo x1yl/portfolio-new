@@ -709,3 +709,17 @@ body {
     animation: none !important;
   }
 }
+
+/* guarantee readable form controls in both themes */
+.hard-card input,
+.hard-card textarea {
+  background: var(--paper) !important;
+  color: var(--ink) !important;
+  border-color: var(--line) !important;
+  -webkit-text-fill-color: var(--ink) !important;
+}
+.hard-card input::placeholder,
+.hard-card textarea::placeholder {
+  color: var(--ink-soft) !important;
+  opacity: 1;
+}
