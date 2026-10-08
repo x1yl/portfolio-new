@@ -5,7 +5,7 @@ const SKILLS: Record<string, string[]> = {
   Languages: ["TypeScript", "JavaScript", "Python", "HTML", "CSS"],
   Frameworks: ["Next.js", "React", "Tailwind CSS", "Node.js"],
   Tools: ["Vercel", "Upstash", "Git & GitHub", "Figma", "Cloudflare"],
-  Interests: ["Mechanical engineering", "College admissions data", "Design systems", "Music"],
+  Interests: ["Mechanical engineering", "Design systems", "Music"],
 };
 
 export default function About() {

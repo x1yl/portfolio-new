@@ -49,48 +49,46 @@ export default function SiteShell({
           Kevin Zheng
         </ParallaxLink>
         <div className="flex items-center gap-3">
-        <nav className="hidden md:flex items-center gap-1">
-          {LINKS.map((item, i) => (
-            <ParallaxLink
-              key={item}
-              href={`/${item.toLowerCase()}`}
-              className={`micro text-[12px]! px-4 py-2 hover:text-(--brand) transition-colors ${animateNav ? "animate-cascade" : ""}`}
-              style={
-                animateNav
-                  ? { animationDelay: `${0.2 + i * 0.15}s` }
-                  : undefined
-              }
-            >
-              {item}
-            </ParallaxLink>
-          ))}
-        </nav>
-        <ThemeToggle />
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button
-              variant="outline"
-              size="icon"
-              className="md:hidden"
-              aria-label="Menu"
-            >
-              <Menu className="h-5 w-5" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent>
-            <nav className="flex flex-col gap-1 mt-10">
-              {LINKS.map((item) => (
-                <ParallaxLink
-                  key={item}
-                  href={`/${item.toLowerCase()}`}
-                  className="px-4 py-3 rounded-lg font-serif text-xl hover:bg-(--brand-tint) transition-colors"
-                >
-                  {item}
-                </ParallaxLink>
-              ))}
-            </nav>
-          </SheetContent>
-        </Sheet>
+          <nav className="hidden md:flex items-center gap-1">
+            {LINKS.map((item, i) => (
+              <ParallaxLink
+                key={item}
+                href={`/${item.toLowerCase()}`}
+                className={`micro text-[12px]! px-4 py-2 hover:text-(--brand) transition-colors ${animateNav ? "animate-cascade" : ""}`}
+                style={
+                  animateNav
+                    ? { animationDelay: `${0.2 + i * 0.15}s` }
+                    : undefined
+                }
+              >
+                {item}
+              </ParallaxLink>
+            ))}
+          </nav>
+          <ThemeToggle />
+          <Sheet>
+            <SheetTrigger asChild>
+              <button
+                aria-label="Open menu"
+                className="md:hidden flex items-center justify-center w-10 h-10 bg-(--surface) border-[1.5px] border-(--ink) rounded-md shadow-[2px_2px_0_var(--ink)] transition-all hover:-translate-x-px hover:-translate-y-px hover:shadow-[3px_3px_0_var(--ink)] active:translate-x-px active:translate-y-px active:shadow-[1px_1px_0_var(--ink)]"
+              >
+                <Menu className="h-5 w-5" strokeWidth={2.25} />
+              </button>
+            </SheetTrigger>
+            <SheetContent className="w-64 border-l-2 border-(--ink) bg-(--paper)">
+              <nav className="flex flex-col gap-1 mt-10">
+                {LINKS.map((item) => (
+                  <ParallaxLink
+                    key={item}
+                    href={`/${item.toLowerCase()}`}
+                    className="px-4 py-3 rounded-lg font-serif text-xl hover:bg-(--brand-tint) transition-colors"
+                  >
+                    {item}
+                  </ParallaxLink>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
         </div>
       </header>
 
