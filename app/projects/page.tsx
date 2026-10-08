@@ -16,6 +16,13 @@ const PROJECTS: {
     tags: ["TypeScript", "localStorage", "data-parsing"],
   },
   {
+    title: "SAT Practice",
+    description:
+      "Full College Board question bank with domain/difficulty filters, an answer-sheet bubble map, floating Desmos and Excalidraw, and score tracking — all client-side with import/export.",
+    href: "https://sat.kevinzheng.fyi",
+    tags: ["JavaScript", "College Board", "client-side"],
+  },
+  {
     title: "KZ Links",
     description:
       "A serverless link shortener with a 30-day TTL, built for the tracker's share URLs. Zero-dependency Upstash REST client, open CORS so any of my sites can mint links.",
