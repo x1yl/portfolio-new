@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 type ParallaxLinkProps = {
@@ -29,7 +30,7 @@ export function ParallaxLink({
   };
 
   return (
-    <a
+    <Link
       href={href}
       className={className}
       style={style}
@@ -42,6 +43,6 @@ export function ParallaxLink({
       >
         {children}
       </span>
-    </a>
+    </Link>
   );
 }

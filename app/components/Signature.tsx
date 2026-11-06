@@ -1,23 +1,15 @@
-"use client";
-import { useEffect, useRef } from "react";
-
-export default function Signature({ active }: { active: boolean }) {
-  const ref = useRef<SVGSVGElement>(null);
-  useEffect(() => {
-    ref.current
-      ?.querySelectorAll("path, line, polyline")
-      .forEach((p, i) =>
-        (p as HTMLElement).style.setProperty("--i", String(i)),
-      );
-  }, []);
+export default function Signature() {
   return (
     <svg
-      className="signature mx-auto block max-w-full"
+      className="signature mx-auto block w-full max-w-full"
       width={468.8999938964844}
       height={100.19999694824219}
       viewBox="0 0 468.9 100.2"
+      role="img"
+      aria-labelledby="signature-title"
       style={{ stroke: "#000000", strokeWidth: "0.25mm", fill: "#000000" }}
     >
+      <title id="signature-title">Kevin Zheng&apos;s signature</title>
       <g
         id="svgGroup"
         strokeLinecap="round"

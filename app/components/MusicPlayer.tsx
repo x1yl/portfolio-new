@@ -131,7 +131,7 @@ export default function MusicPlayer() {
   return (
     <div
       id="music-box"
-      className="fixed bottom-0 right-0 w-auto max-w-[calc(100vw-20px)] bg-[#121b20]/92 border border-white/15 backdrop-blur-md flex justify-between items-center p-2.5 m-2.5 rounded-[10px] z-10"
+      className="fixed bottom-0 right-0 z-10 m-2.5 flex w-auto max-w-[calc(100vw-20px)] items-center justify-between rounded-[10px] border border-white/15 bg-[#121b20]/92 p-2.5 backdrop-blur-md print:hidden"
     >
       {isPlaying && currentSong && (
         <Image

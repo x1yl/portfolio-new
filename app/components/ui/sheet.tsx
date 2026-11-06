@@ -36,13 +36,13 @@ function SheetContent({
       <SheetOverlay />
       <SheetPrimitive.Content
         className={cn(
-          "fixed inset-y-0 right-0 z-50 flex h-full w-[86%] max-w-sm flex-col border-l border-white/20 bg-[#0e1417]/95 p-6 text-slate-50 shadow-2xl",
+          "fixed inset-y-0 right-0 z-50 flex h-full w-[86%] max-w-sm flex-col border-l-2 border-(--ink) bg-(--paper) p-6 text-(--ink) shadow-2xl",
           className,
         )}
         {...props}
       >
         {children}
-        <SheetPrimitive.Close className="absolute right-4 top-4 rounded-full p-1 text-slate-300 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/25">
+        <SheetPrimitive.Close className="absolute right-4 top-4 rounded-full p-1 text-(--ink-soft) transition-colors hover:bg-(--brand-tint) hover:text-(--ink) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--brand)">
           <X className="h-5 w-5" />
           <span className="sr-only">Close</span>
         </SheetPrimitive.Close>

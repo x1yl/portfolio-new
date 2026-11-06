@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: light;
   --paper: #f5f4ef;
   --surface: #ffffff;
   --ink: #17191f;
@@ -9,6 +10,7 @@
   --brand: #0c7a5b;
   --brand-tint: #e2f1ea;
   --amber: #d69e2e;
+  --on-brand: #ffffff;
 
   /* shadcn contract */
   --background: var(--paper);
@@ -18,7 +20,7 @@
   --popover: var(--surface);
   --popover-foreground: var(--ink);
   --primary: var(--brand);
-  --primary-foreground: #ffffff;
+  --primary-foreground: var(--on-brand);
   --secondary: var(--brand-tint);
   --secondary-foreground: var(--ink);
   --muted: color-mix(in srgb, var(--ink-soft) 12%, transparent);
@@ -33,6 +35,7 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
+    color-scheme: dark;
     --paper: #0d100f;
     --surface: #151a18;
     --ink: #e9ede9;
@@ -41,9 +44,11 @@
     --brand: #41d39a;
     --brand-tint: #16362b;
     --amber: #e8b54b;
+    --on-brand: #07130e;
   }
 }
 :root[data-theme="dark"] {
+  color-scheme: dark;
   --paper: #0d100f;
   --surface: #151a18;
   --ink: #e9ede9;
@@ -52,6 +57,7 @@
   --brand: #41d39a;
   --brand-tint: #16362b;
   --amber: #e8b54b;
+  --on-brand: #07130e;
 }
 
 /* Tailwind v4 font wiring (font-serif / font-mono utilities) */
@@ -61,6 +67,9 @@
   --font-mono: var(--font-jbmono), ui-monospace, monospace;
 }
 
+html {
+  scroll-behavior: smooth;
+}
 body {
   background-color: var(--paper);
   background-image: radial-gradient(
@@ -73,7 +82,45 @@ body {
 }
 ::selection {
   background: var(--brand);
-  color: #fff;
+  color: var(--on-brand);
+}
+
+:where(a, button, input, textarea, select):focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+.site-bg {
+  opacity: 0.14;
+  mix-blend-mode: multiply;
+}
+:root[data-theme="dark"] .site-bg {
+  opacity: 0.1;
+  mix-blend-mode: screen;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .site-bg {
+    opacity: 0.1;
+    mix-blend-mode: screen;
+  }
+}
+
+.theme-icon-dark {
+  display: none;
+}
+:root[data-theme="dark"] .theme-icon-light {
+  display: none;
+}
+:root[data-theme="dark"] .theme-icon-dark {
+  display: block;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-icon-light {
+    display: none;
+  }
+  :root:not([data-theme="light"]) .theme-icon-dark {
+    display: block;
+  }
 }
 
 /* shared neo-brutalist bits */
@@ -86,7 +133,7 @@ body {
 .btn-hard {
   display: inline-block;
   background: var(--brand);
-  color: #fff;
+  color: var(--on-brand);
   border: 1.5px solid var(--ink);
   border-radius: 6px;
   padding: 10px 18px;
@@ -704,9 +751,55 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * {
-    transition: none !important;
-    animation: none !important;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-fade-up,
+  .animate-cascade {
+    opacity: 1;
+    transform: none;
+  }
+  .signature g {
+    fill: var(--ink);
+  }
+}
+
+@media print {
+  :root {
+    --paper: #ffffff;
+    --surface: #ffffff;
+    --ink: #000000;
+    --ink-soft: #333333;
+    --line: #bbbbbb;
+  }
+  body {
+    background: #ffffff !important;
+  }
+  .site-bg,
+  .site-fade,
+  #music-box {
+    display: none !important;
+  }
+  main {
+    min-height: auto !important;
+    overflow: visible !important;
+  }
+  .hard-card {
+    box-shadow: none !important;
+    border-color: #000000 !important;
+  }
+  a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+  @page {
+    margin: 0.55in;
   }
 }
 

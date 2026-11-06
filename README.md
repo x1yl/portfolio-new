@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kevin Zheng — Portfolio
 
-## Getting Started
+A small, typography-led portfolio for Kevin Zheng: mechatronics and robotics
+student at Brooklyn Technical High School, developer, and vice president of
+BTHS Action.
 
-First, run the development server:
+The design is intended to read like a printed page — Fraunces, Inter, and
+JetBrains Mono, a paper texture, and a hand-drawn signature. The content is
+built for recruiters: project case studies, an HTML résumé, and a direct
+contact route.
+
+## Stack
+
+- Next.js 16 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Nodemailer for the contact form
+- Cloudflare Turnstile for spam protection
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run dev    # start the development server
+npm run build  # production build
+npm run start  # run the production build
+npm run lint   # eslint
+```
 
-## Learn More
+## Environment variables
 
-To learn more about Next.js, take a look at the following resources:
+Create `.env.local` with the values used by the contact form:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+SMTP_HOST=
+SMTP_PORT=587
+SMTP_USER=
+SMTP_PASS=
+CONTACT_TO=
+CONTACT_FROM=
+TURNSTILE_SECRET_KEY=
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The contact form will show a verification error if Turnstile is not
+configured. The local `.env.local` uses Cloudflare's always-pass test key, which
+displays a test warning on the widget — replace both Turnstile values with
+production keys before deploying.
 
-## Deploy on Vercel
+## Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+app/
+  about/                 bio, experience, education, skills
+  api/contact/           contact form handler (SMTP + Turnstile)
+  components/            SiteShell, theme toggle, music player, signature
+  contact/               contact page and client form
+  lib/                   site config, project data, résumé data
+  projects/              project index and case studies
+  resume/                HTML résumé with print styles
+  globals.css            design tokens, motion, print styles
+  layout.tsx             fonts, metadata, JSON-LD
+  manifest.ts            web app manifest
+  not-found.tsx          404 page
+  opengraph-image.tsx    social sharing image
+  robots.ts              robots.txt
+  sitemap.ts             sitemap.xml
+public/
+  projects/              project screenshots (WebP)
+  music/                 playlist and audio clips
+assets/
+  background-original.png  original 80 MB background (not served)
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notes
+
+- `public/background.webp` is the optimized, served background. The original
+  source image lives in `assets/` so it is not included in the deployment.
+- Project case studies are driven by `app/lib/projects.ts`. Add a project there
+  and it will appear on the index, generate a case-study route, and be included
+  in the sitemap.
+- The résumé page uses `app/lib/resume.ts`; the downloadable PDF remains at
+  `public/Kevin Zheng Resume.pdf`.
+- Screenshots in `public/projects/` were captured from the live sites (and
+  from a local production build for this portfolio) and compressed to WebP.
+
+## Credits
+
+- Signature SVG generated with [SVG Artista](https://svgartista.net/).
+- Music player inspired by [3kh0's simple music player](https://github.com/3kh0/simple-music-player).
+- Music by [25mxfu](https://25mxfu.bandcamp.com/).

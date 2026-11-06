@@ -1,88 +1,131 @@
-"use client";
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 import SiteShell from "../components/SiteShell";
-import { ParallaxLink } from "../components/ParallaxLink";
+import { PROJECTS } from "../lib/projects";
+import { SITE } from "../lib/site";
 
-const PROJECTS: {
-  title: string;
-  description: string;
-  href: string;
-  tags?: string[];
-}[] = [
-  {
-    title: "College Application Tracker",
-    description:
-      "A local-first tracker for college applications — deadlines, essays, checklists, and school-specific admissions stats parsed straight from uploaded Overgrad pages. Features compressed share links and dark mode.",
-    href: "https://college.kevinzheng.fyi",
-    tags: ["TypeScript", "localStorage", "data-parsing"],
-  },
-  {
-    title: "SAT Practice",
-    description:
-      "Full College Board question bank with domain/difficulty filters, an answer-sheet bubble map, floating Desmos and Excalidraw, and score tracking — all client-side with import/export.",
-    href: "https://sat.kevinzheng.fyi",
-    tags: ["JavaScript", "College Board", "client-side"],
-  },
-  {
-    title: "KZ Links",
-    description:
-      "A serverless link shortener with a 30-day TTL, built for the tracker's share URLs. Zero-dependency Upstash REST client, open CORS so any of my sites can mint links.",
-    href: "https://links.kevinzheng.fyi",
-    tags: ["Vercel", "Upstash", "serverless"],
-  },
-  {
-    title: "Portfolio",
-    description:
-      "This site — animated SVG signature, mouse-parallax background, floating music player, and a contact form behind Cloudflare Turnstile. Neo-brutalist 'Academic Print' design system with light/dark themes.",
-    href: "https://kevinzheng.fyi",
-    tags: ["Next.js", "Tailwind", "animation"],
-  },
-];
+export const metadata: Metadata = {
+  title: "Projects",
+  description:
+    "Selected projects by Kevin Zheng — full-stack apps, local-first tools, and a portfolio built from scratch.",
+  alternates: { canonical: "/projects" },
+};
 
 export default function Projects() {
   return (
     <SiteShell>
-      <div className="max-w-3xl mx-auto px-6 py-16">
+      <div className="mx-auto max-w-6xl px-6 py-16">
         <p className="micro mb-3">Projects</p>
-        <h1 className="font-serif text-4xl md:text-5xl font-semibold mb-12">
-          Things I've built.
+        <h1 className="mb-5 font-serif text-4xl font-semibold md:text-5xl">
+          Things I&apos;ve built.
         </h1>
+        <p className="mb-12 max-w-3xl leading-relaxed text-(--ink-soft)">
+          A mix of full-stack apps, local-first tools, and the site you&apos;re
+          reading. Each case study covers the problem, the build, and what
+          I&apos;d change next.
+        </p>
 
-        {PROJECTS.length === 0 ? (
-          <div className="hard-card border-dashed border-(--line)! p-12 text-center">
-            <p className="font-serif text-2xl mb-2">Nothing public yet.</p>
-            <p className="text-(--ink-soft) mb-6">
-              Check back soon — or see what I'm up to on GitHub.
-            </p>
-            <ParallaxLink
-              href="https://github.com"
-              className="font-mono text-sm text-(--brand) font-semibold underline underline-offset-4"
+        <div className="grid gap-8 md:grid-cols-2">
+          {PROJECTS.map((project) => (
+            <article
+              key={project.slug}
+              className="hard-card flex flex-col overflow-hidden"
             >
-              github.com →
-            </ParallaxLink>
-          </div>
-        ) : (
-          <div className="grid gap-6">
-            {PROJECTS.map((p) => (
-              <a
-                key={p.title}
-                href={p.href}
-                className="hard-card block p-6 hover:-translate-x-0.5 hover:-translate-y-0.5 transition-transform no-underline"
+              <Link
+                href={`/projects/${project.slug}`}
+                aria-label={`Read the ${project.title} case study`}
+                className="block border-b-[1.5px] border-(--ink) bg-(--paper)"
               >
-                <h2 className="font-serif text-2xl mb-1 text-(--ink)">
-                  {p.title}
-                </h2>
-                <p className="text-(--ink-soft)">{p.description}</p>
-                <div className="flex flex-wrap gap-2 font-mono text-xs text-(--brand)">
-                  {p.tags?.map((t) => (
-                    <span key={t} className="whitespace-nowrap">
-                      #{t}
+                {project.image ? (
+                  <Image
+                    src={project.image}
+                    alt={project.imageAlt ?? `${project.title} screenshot`}
+                    width={1440}
+                    height={900}
+                    sizes="(min-width: 768px) 45vw, 100vw"
+                    className="aspect-[16/10] w-full object-cover transition-transform duration-300 hover:scale-[1.015]"
+                  />
+                ) : (
+                  <div className="flex aspect-[16/10] w-full items-center justify-center bg-(--brand-tint) p-8">
+                    <span className="font-serif text-4xl font-semibold text-(--ink)">
+                      {project.title}
                     </span>
+                  </div>
+                )}
+              </Link>
+
+              <div className="flex flex-1 flex-col p-5">
+                <div className="flex items-start justify-between gap-4">
+                  <h2 className="font-serif text-2xl leading-tight">
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="transition-colors hover:text-(--brand)"
+                    >
+                      {project.title}
+                    </Link>
+                  </h2>
+                  <span className="micro shrink-0">{project.year}</span>
+                </div>
+
+                <p className="mt-2 text-sm leading-relaxed text-(--ink-soft)">
+                  {project.summary}
+                </p>
+
+                <p className="micro mt-4">
+                  {project.role} · {project.type}
+                </p>
+
+                <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1 font-mono text-[11px] font-semibold text-(--brand)">
+                  {project.stack.map((tag) => (
+                    <span key={tag}>#{tag}</span>
                   ))}
                 </div>
-              </a>
-            ))}
-          </div>
-        )}
+
+                <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 pt-5 font-mono text-xs font-semibold">
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="text-(--ink) underline decoration-(--line) underline-offset-4 transition-colors hover:text-(--brand)"
+                  >
+                    Case study →
+                  </Link>
+                  {project.live && (
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-(--ink-soft) underline decoration-(--line) underline-offset-4 transition-colors hover:text-(--brand)"
+                    >
+                      Live ↗
+                    </a>
+                  )}
+                  {project.repo && (
+                    <a
+                      href={project.repo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-(--ink-soft) underline decoration-(--line) underline-offset-4 transition-colors hover:text-(--brand)"
+                    >
+                      Code ↗
+                    </a>
+                  )}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <p className="micro mt-12">
+          More experiments on{" "}
+          <a
+            href={SITE.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-(--brand) underline underline-offset-4"
+          >
+            GitHub ↗
+          </a>
+        </p>
       </div>
     </SiteShell>
   );
