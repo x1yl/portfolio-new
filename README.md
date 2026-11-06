@@ -1,8 +1,8 @@
 # Kevin Zheng — Portfolio
 
 A small, typography-led portfolio for Kevin Zheng: mechatronics and robotics
-student at Brooklyn Technical High School, developer, and vice president of
-BTHS Action.
+student at Brooklyn Technical High School, FTC programmer, developer, and vice
+president of BTHS Action.
 
 The design is intended to read like a printed page — Fraunces, Inter, and
 JetBrains Mono, a paper texture, and a hand-drawn signature. The content is

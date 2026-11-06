@@ -33,6 +33,11 @@ export default function About() {
             the tools that live in that overlap.
           </p>
           <p>
+            I also program the control system for FTC Team 27705, where I work
+            on RoadRunner drive code, sensor integration, and mechanism
+            control.
+          </p>
+          <p>
             Most of what I build starts with something I actually need. This
             past year that meant a college application tracker, a question bank
             for SAT practice, and a link shortener for the share URLs that got

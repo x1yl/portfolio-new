@@ -799,7 +799,7 @@ body {
     text-decoration: none !important;
   }
   @page {
-    margin: 0.55in;
+    margin: 0.5in;
   }
 }
 
@@ -815,4 +815,117 @@ body {
 .hard-card textarea::placeholder {
   color: var(--ink-soft) !important;
   opacity: 1;
+}
+.print-only-resume {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: letter;
+    margin: 0;
+  }
+  body {
+    background: #ffffff !important;
+  }
+  main {
+    min-height: auto !important;
+    overflow: visible !important;
+  }
+  .print-only-resume {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 24pt 32pt 26pt;
+    color: #111111;
+    font-family: "Liberation Sans", Arial, Helvetica, sans-serif;
+    font-size: 9.15pt;
+    line-height: 1.27;
+  }
+  .print-only-resume a {
+    color: #1155cc;
+    text-decoration: none;
+  }
+  .print-only-resume header {
+    margin-bottom: 8pt;
+    text-align: center;
+  }
+  .print-only-resume h1 {
+    margin: 0 0 4pt;
+    font-size: 15pt;
+    line-height: 1;
+    font-weight: 700;
+    text-align: center;
+  }
+  .print-only-resume__contact {
+    margin: 0;
+    font-size: 8pt;
+    line-height: 1.45;
+  }
+  .print-only-resume__pipe {
+    color: #444444;
+    padding: 0 2pt;
+  }
+  .print-only-resume section {
+    margin-top: 10pt;
+  }
+  .print-only-resume h2 {
+    margin: 0 0 5pt;
+    padding-bottom: 3pt;
+    border-bottom: 1.15pt solid #111111;
+    font-size: 7.5pt;
+    line-height: 1;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .print-only-resume__entry {
+    margin-bottom: 7pt;
+    break-inside: avoid;
+  }
+  .print-only-resume__row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12pt;
+  }
+  .print-only-resume h3 {
+    margin: 0;
+    font-size: 8.9pt;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  .print-only-resume__date {
+    margin: 0;
+    white-space: nowrap;
+    font-size: 7.8pt;
+    font-weight: 700;
+    text-align: right;
+  }
+  .print-only-resume__sub {
+    margin-top: 1pt;
+    font-style: italic;
+  }
+  .print-only-resume p {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .print-only-resume ul {
+    margin: 3pt 0 0 18pt;
+    padding: 0;
+    list-style: disc;
+  }
+  .print-only-resume li {
+    margin: 0 0 2.5pt;
+    padding-left: 2pt;
+  }
+  .print-only-resume li::marker {
+    color: #0c7a5b;
+  }
+  .print-only-resume strong {
+    font-weight: 700;
+  }
+  .print-only-resume__project,
+  .print-only-resume__skills {
+    margin: 2pt 0 0;
+  }
 }

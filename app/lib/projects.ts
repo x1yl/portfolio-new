@@ -22,6 +22,51 @@ export type Project = {
 
 export const PROJECTS: Project[] = [
   {
+    slug: "ftc-robot",
+    title: "FTC Robot",
+    year: "2026–27",
+    role: "Programmer",
+    type: "Competition robot",
+    summary:
+      "The control system for FTC Team 27705's BIOBUZZ robot — RoadRunner mecanum drive, Pinpoint localization, Limelight vision, and PID-controlled mechanisms.",
+    stack: ["Java", "FTC SDK", "RoadRunner", "Limelight", "Pinpoint"],
+    repo: "https://github.com/x1yl/Ftc-BioBuzz-27705",
+    image: "/projects/ftc-robot.webp",
+    imageAlt:
+      "Diagram of the FTC Team 27705 robot control stack showing TeleOp, MecanumDrive, Limelight, Pinpoint, and mechanisms",
+    featured: true,
+    sections: [
+      {
+        heading: "The problem",
+        paragraphs: [
+          "FTC robots have to move precisely, score reliably, and stay controllable under match pressure. Our BIOBUZZ robot needed autonomous pathing, vision alignment, and several mechanisms coordinated from one TeleOp.",
+        ],
+      },
+      {
+        heading: "What I built",
+        bullets: [
+          "RoadRunner mecanum drive with Pinpoint odometry for autonomous paths and field-centric control",
+          "Limelight 3A AprilTag detection for alignment and live telemetry",
+          "PID-controlled flywheel and adjustable hood for velocity-based shooting",
+          "Spindexer state machine with color sensing, sorter, and kicker",
+          "TeleOp and subsystem tuning OpModes for driver control and hardware testing",
+        ],
+      },
+      {
+        heading: "The hard part",
+        paragraphs: [
+          "Making the subsystems behave predictably together. The spindexer has to index, sort, and feed balls while the flywheel holds a target velocity, and the drive has to hold a pose while the operator aims. I separated each mechanism into a subsystem with explicit states and added tuning OpModes so we could test hardware without running a full match.",
+        ],
+      },
+      {
+        heading: "What I'd change",
+        paragraphs: [
+          "Add automated tests around the state machines and log match data so tuning decisions come from repeated runs instead of one-off tests.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "study-room",
     title: "Study Room",
     year: "2026",

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteShell from "../components/SiteShell";
 import PrintButton from "./PrintButton";
+import PrintResume from "./PrintResume";
 import {
   EDUCATION,
   EXPERIENCE,
@@ -68,11 +69,11 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className="border-t-[1.5px] border-(--line) pt-6 print:pt-4">
-      <h2 className="micro mb-4 print:mb-3 print:break-after-avoid">
+    <section className="border-t-[1.5px] border-(--line) pt-6 print:pt-3">
+      <h2 className="micro mb-4 print:mb-2 print:break-after-avoid">
         {title}
       </h2>
-      <div className="space-y-5 print:space-y-4">{children}</div>
+      <div className="space-y-5 print:space-y-3">{children}</div>
     </section>
   );
 }
@@ -80,8 +81,8 @@ function Section({
 export default function Resume() {
   return (
     <SiteShell>
-      <div className="mx-auto max-w-6xl px-6 py-16 print:max-w-none print:px-0 print:py-0">
-        <header className="mb-8 flex flex-wrap items-start justify-between gap-6 print:mb-5">
+      <div className="mx-auto max-w-6xl px-6 py-16 print:hidden">
+        <header className="mb-8 flex flex-wrap items-start justify-between gap-6 print:mb-4">
           <div>
             <p className="micro mb-2 print:hidden">Résumé</p>
             <h1 className="font-serif text-4xl font-semibold md:text-5xl print:text-3xl">
@@ -90,7 +91,7 @@ export default function Resume() {
             <p className="mt-2 text-lg text-(--ink-soft) print:mt-1 print:text-base">
               Mechatronics &amp; robotics student · Developer
             </p>
-            <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 font-mono text-xs font-semibold">
+            <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 font-mono text-xs font-semibold print:mt-2">
               <span className="text-(--ink-soft)">Brooklyn, NY</span>
               <a
                 href={`mailto:${SITE.email}`}
@@ -129,7 +130,7 @@ export default function Resume() {
           </div>
         </header>
 
-        <div className="space-y-8 print:space-y-5">
+        <div className="space-y-8 print:space-y-4">
           <Section title="Education">
             {EDUCATION.map((entry) => (
               <Entry key={entry.title} entry={entry} />
@@ -170,6 +171,7 @@ export default function Resume() {
           </Section>
         </div>
       </div>
+      <PrintResume />
     </SiteShell>
   );
 }

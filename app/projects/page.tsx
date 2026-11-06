@@ -44,10 +44,10 @@ export default function Projects() {
                     width={1440}
                     height={900}
                     sizes="(min-width: 768px) 45vw, 100vw"
-                    className="aspect-[16/10] w-full object-cover transition-transform duration-300 hover:scale-[1.015]"
+                    className="aspect-16/10 w-full object-cover transition-transform duration-300 hover:scale-[1.015]"
                   />
                 ) : (
-                  <div className="flex aspect-[16/10] w-full items-center justify-center bg-(--brand-tint) p-8">
+                  <div className="flex aspect-16/10 w-full items-center justify-center bg-(--brand-tint) p-8">
                     <span className="font-serif text-4xl font-semibold text-(--ink)">
                       {project.title}
                     </span>

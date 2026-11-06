@@ -66,6 +66,15 @@ export const LEADERSHIP: ResumeEntry[] = [
 
 export const RESUME_PROJECTS: ResumeEntry[] = [
   {
+    title: "FTC Robot",
+    subtitle: "Java, FTC SDK, RoadRunner, Limelight, Pinpoint",
+    date: "2026–27",
+    bullets: [
+      "Programmed the control system for FTC Team 27705's BIOBUZZ robot, including RoadRunner mecanum drive, Pinpoint localization, Limelight vision, and PID-controlled mechanisms.",
+    ],
+    href: "/projects/ftc-robot",
+  },
+  {
     title: "Study Room",
     subtitle:
       "TypeScript, Next.js, tRPC, Prisma, React",
@@ -114,9 +123,17 @@ export const RESUME_PROJECTS: ResumeEntry[] = [
 ];
 
 export const SKILL_GROUPS: Record<string, string[]> = {
-  Languages: ["TypeScript", "JavaScript", "Python", "HTML", "CSS"],
+  Languages: ["TypeScript", "JavaScript", "Python", "Java", "HTML", "CSS"],
   Frameworks: ["Next.js", "React", "Tailwind CSS", "Node.js", "tRPC", "Prisma"],
   Tools: ["Vercel", "Upstash", "Git & GitHub", "Figma", "Cloudflare"],
+  Robotics: [
+    "FTC SDK",
+    "RoadRunner",
+    "Limelight",
+    "Pinpoint",
+    "PID control",
+    "AprilTag vision",
+  ],
   Coursework: [
     "AP Computer Science A",
     "AP Computer Science Principles",
